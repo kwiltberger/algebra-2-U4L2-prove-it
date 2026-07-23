@@ -1,0 +1,2929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Unit 4 Week 2 Prove It! | Function Transformations</title>
+
+    <style>
+        :root {
+            --navy: #0f2d44;
+            --navy-2: #1d4f70;
+            --blue: #1479b8;
+            --blue-light: #eef7fc;
+            --green: #2f8f4e;
+            --green-light: #eefaf1;
+            --yellow: #f2b705;
+            --yellow-light: #fff8e6;
+            --red: #b42318;
+            --red-light: #fff0ee;
+            --purple: #7b4f9d;
+            --purple-light: #f5eff9;
+            --gray-50: #f8fafc;
+            --gray-100: #eef2f6;
+            --gray-200: #d6e0e8;
+            --gray-400: #8a9bab;
+            --gray-600: #526273;
+            --gray-800: #1f2933;
+            --white: #ffffff;
+            --shadow: 0 12px 28px rgba(15, 45, 68, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--gray-800);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.55;
+            background: #edf3f7;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .app-shell {
+            width: min(1120px, calc(100% - 24px));
+            margin: 18px auto 40px;
+        }
+
+        .hero {
+            padding: 26px;
+            color: var(--white);
+            background: var(--navy);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-kicker {
+            margin: 0 0 5px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(1.9rem, 5vw, 2.6rem);
+            line-height: 1.15;
+        }
+
+        .hero p:last-child {
+            margin: 8px 0 0;
+            font-size: 1.08rem;
+        }
+
+        .panel {
+            padding: clamp(17px, 3vw, 28px);
+            margin-top: 18px;
+            background: var(--white);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        h2,
+        h3 {
+            color: var(--navy);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .overview {
+            padding: 17px;
+            margin-bottom: 18px;
+            background: var(--blue-light);
+            border-left: 6px solid var(--blue);
+            border-radius: 9px;
+        }
+
+        .overview h2 {
+            margin: 0 0 7px;
+        }
+
+        .overview p:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label,
+        legend {
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px 12px;
+            color: var(--gray-800);
+            background: var(--white);
+            border: 2px solid #b8c8d4;
+            border-radius: 8px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--blue);
+            outline: 3px solid rgba(20, 121, 184, 0.18);
+        }
+
+        textarea {
+            min-height: 115px;
+            resize: vertical;
+        }
+
+        fieldset {
+            padding: 14px;
+            margin: 0;
+            border: 1px solid var(--gray-200);
+            border-radius: 9px;
+        }
+
+        legend {
+            padding: 0 7px;
+        }
+
+        .choice-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 9px;
+            margin-top: 8px;
+        }
+
+        .choice {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            padding: 10px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+        }
+
+        .choice input {
+            width: auto;
+            margin-top: 4px;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .primary,
+        .secondary,
+        .danger {
+            min-height: 44px;
+            padding: 10px 18px;
+            font-weight: 700;
+            border-radius: 8px;
+        }
+
+        .primary {
+            color: var(--white);
+            background: var(--navy);
+            border: 2px solid var(--navy);
+        }
+
+        .primary:hover,
+        .primary:focus-visible {
+            background: var(--navy-2);
+            outline: 3px solid rgba(20, 121, 184, 0.22);
+        }
+
+        .secondary {
+            color: var(--navy);
+            background: var(--white);
+            border: 2px solid var(--navy);
+        }
+
+        .secondary:hover,
+        .secondary:focus-visible {
+            background: var(--blue-light);
+            outline: 3px solid rgba(20, 121, 184, 0.18);
+        }
+
+        .danger {
+            color: var(--red);
+            background: var(--white);
+            border: 2px solid var(--red);
+        }
+
+        .progress-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .progress-label {
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .progress-track {
+            flex: 1 1 280px;
+            height: 14px;
+            overflow: hidden;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: 999px;
+        }
+
+        .progress-fill {
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--blue), var(--green));
+            transition: width 0.3s ease;
+        }
+
+        .problem-heading {
+            padding: 18px;
+            margin-bottom: 18px;
+            color: var(--white);
+            background: var(--navy);
+            border-radius: 10px;
+        }
+
+        .problem-heading p {
+            margin: 4px 0 0;
+        }
+
+        .equation-box {
+            padding: 15px;
+            margin: 14px 0;
+            overflow-x: auto;
+            color: var(--navy);
+            font-size: clamp(1.15rem, 3vw, 1.45rem);
+            font-weight: 700;
+            text-align: center;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 9px;
+        }
+
+        .support-box {
+            padding: 15px;
+            margin: 15px 0;
+            background: var(--yellow-light);
+            border-left: 6px solid var(--yellow);
+            border-radius: 8px;
+        }
+
+        .success-box {
+            padding: 15px;
+            margin: 15px 0;
+            background: var(--green-light);
+            border-left: 6px solid var(--green);
+            border-radius: 8px;
+        }
+
+        .graph-card {
+            padding: 14px;
+            margin: 16px 0;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 8px;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        .legend-item {
+            display: inline-flex;
+            gap: 7px;
+            align-items: center;
+        }
+
+        .legend-line {
+            width: 28px;
+            border-top: 4px solid;
+        }
+
+        .legend-line.parent {
+            border-color: #a9b4bd;
+            border-top-style: dashed;
+        }
+
+        .legend-line.transformed {
+            border-color: var(--blue);
+        }
+
+        .graph-wrap {
+            width: 100%;
+            aspect-ratio: 1.3 / 1;
+            overflow: hidden;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+        }
+
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .point-table {
+            width: 100%;
+            margin-top: 12px;
+            border-collapse: collapse;
+        }
+
+        .point-table th {
+            padding: 10px;
+            color: var(--white);
+            background: var(--navy);
+            border: 1px solid var(--gray-200);
+        }
+
+        .point-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid var(--gray-200);
+        }
+
+        .point-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .feedback {
+            display: none;
+            padding: 15px;
+            margin-top: 16px;
+            border-left: 6px solid;
+            border-radius: 8px;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: var(--green-light);
+            border-color: var(--green);
+        }
+
+        .feedback.incorrect {
+            background: var(--red-light);
+            border-color: var(--red);
+        }
+
+        .feedback h3 {
+            margin: 0 0 5px;
+        }
+
+        .feedback p:last-child {
+            margin-bottom: 0;
+        }
+
+        .status-list {
+            display: grid;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .status-item {
+            padding: 10px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+        }
+
+        .status-item.good {
+            border-left: 5px solid var(--green);
+        }
+
+        .status-item.bad {
+            border-left: 5px solid var(--red);
+        }
+
+        .graph-choice-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .graph-choice {
+            padding: 8px;
+            background: var(--white);
+            border: 3px solid var(--gray-200);
+            border-radius: 9px;
+        }
+
+        .graph-choice.selected {
+            border-color: var(--blue);
+            background: var(--blue-light);
+        }
+
+        .graph-choice input {
+            width: auto;
+        }
+
+        .graph-choice label {
+            display: block;
+            cursor: pointer;
+        }
+
+        .mini-graph {
+            width: 100%;
+            aspect-ratio: 1 / 0.8;
+            margin-bottom: 7px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+        }
+
+        .summary-card {
+            padding: 18px;
+            margin: 15px 0;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+        }
+
+        .summary-card h3 {
+            margin-top: 0;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+            border: 1px solid var(--gray-200);
+        }
+
+        .summary-table th {
+            width: 34%;
+            color: var(--navy);
+            background: #edf5fa;
+        }
+
+        .score-banner {
+            padding: 19px;
+            margin-bottom: 18px;
+            text-align: center;
+            background: var(--green-light);
+            border: 2px solid var(--green);
+            border-radius: 10px;
+        }
+
+        .score-banner strong {
+            color: var(--navy);
+            font-size: 1.3rem;
+        }
+
+        .footer-note {
+            margin-top: 18px;
+            color: var(--gray-600);
+            font-size: 0.88rem;
+            text-align: center;
+        }
+
+        .teacher-note {
+            padding: 14px;
+            margin-top: 18px;
+            background: var(--purple-light);
+            border-left: 6px solid var(--purple);
+            border-radius: 8px;
+        }
+
+        .required {
+            color: var(--red);
+        }
+
+        .small {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 780px) {
+            .form-grid,
+            .choice-grid,
+            .graph-choice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .graph-wrap {
+                aspect-ratio: 1 / 1;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .app-shell {
+                width: min(100% - 12px, 1120px);
+                margin-top: 6px;
+            }
+
+            .hero,
+            .panel {
+                border-radius: 10px;
+            }
+
+            .hero {
+                padding: 19px;
+            }
+
+            .panel {
+                padding: 14px;
+            }
+
+            .button-row button {
+                width: 100%;
+            }
+
+            .point-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: var(--white);
+            }
+
+            .app-shell {
+                width: 100%;
+                margin: 0;
+            }
+
+            .hero,
+            .panel {
+                box-shadow: none;
+            }
+
+            .hero,
+            .button-row,
+            .footer-note,
+            #welcomePanel,
+            #problemPanel {
+                display: none !important;
+            }
+
+            #summaryPanel {
+                display: block !important;
+                margin: 0;
+                padding: 0;
+            }
+
+            .summary-card {
+                break-inside: avoid;
+            }
+
+            .score-banner {
+                break-inside: avoid;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="app-shell">
+        <header class="hero">
+            <p class="hero-kicker">Unit 4 • Week 2 • Prove It!</p>
+            <h1>Function Transformations</h1>
+            <p>Analyze transformations, build a function, verify with graphs, and submit your completed PDF.</p>
+        </header>
+
+        <!-- =====================================================
+             WELCOME SCREEN
+             ===================================================== -->
+        <section id="welcomePanel" class="panel">
+            <div class="overview">
+                <h2>Assignment Overview</h2>
+
+                <p>
+                    This assignment contains two function-transformation problems.
+                    Your problem values are generated from your name, so your assignment
+                    will be slightly different from other students' assignments.
+                </p>
+
+                <p>
+                    Enter your name exactly the same way each time. The same name will
+                    always generate the same problem set.
+                </p>
+            </div>
+
+            <div class="support-box">
+                <strong>Important:</strong>
+                Complete this activity using the same browser and device whenever possible.
+                Your work is saved locally in this browser.
+            </div>
+
+            <div class="form-grid">
+                <div class="field">
+                    <label for="firstName">
+                        First name <span class="required">*</span>
+                    </label>
+
+                    <input
+                        id="firstName"
+                        type="text"
+                        autocomplete="given-name"
+                        maxlength="40"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="lastName">
+                        Last name <span class="required">*</span>
+                    </label>
+
+                    <input
+                        id="lastName"
+                        type="text"
+                        autocomplete="family-name"
+                        maxlength="40"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div id="welcomeFeedback" class="feedback" role="status" aria-live="polite"></div>
+
+            <div class="button-row">
+                <button id="generateButton" class="primary" type="button">
+                    Generate My Assignment
+                </button>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             PROBLEM SCREEN
+             ===================================================== -->
+        <section id="problemPanel" class="panel hidden">
+            <div class="progress-row">
+                <div id="progressLabel" class="progress-label">
+                    Problem 1 of 2
+                </div>
+
+                <div
+                    id="progressTrack"
+                    class="progress-track"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="2"
+                    aria-valuenow="0"
+                >
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- PROBLEM 1 -->
+            <article id="problem1">
+                <div class="problem-heading">
+                    <h2 style="margin: 0; color: #ffffff;">
+                        Problem 1: Analyze a Transformed Function
+                    </h2>
+
+                    <p>
+                        Identify each transformation, key feature, and transformed point.
+                    </p>
+                </div>
+
+                <p>
+                    The parent function is:
+                </p>
+
+                <div id="p1ParentEquation" class="equation-box"></div>
+
+                <p>
+                    Analyze the transformed function:
+                </p>
+
+                <div id="p1Equation" class="equation-box"></div>
+
+                <div class="graph-card">
+                    <div class="legend">
+                        <span class="legend-item">
+                            <span class="legend-line parent" aria-hidden="true"></span>
+                            Parent function
+                        </span>
+
+                        <span class="legend-item">
+                            <span class="legend-line transformed" aria-hidden="true"></span>
+                            Transformed function
+                        </span>
+                    </div>
+
+                    <div class="graph-wrap">
+                        <svg
+                            id="p1Graph"
+                            viewBox="0 0 640 500"
+                            role="img"
+                            aria-label="Parent and transformed function graph"
+                        ></svg>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="p1ParentType">
+                            Parent function family
+                        </label>
+
+                        <select id="p1ParentType">
+                            <option value="">Choose...</option>
+                            <option value="quadratic">Quadratic</option>
+                            <option value="absolute">Absolute value</option>
+                            <option value="sqrt">Square root</option>
+                            <option value="cubic">Cubic</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="p1Horizontal">
+                            Horizontal translation
+                        </label>
+
+                        <select id="p1Horizontal"></select>
+                    </div>
+
+                    <div class="field">
+                        <label for="p1Vertical">
+                            Vertical translation
+                        </label>
+
+                        <select id="p1Vertical"></select>
+                    </div>
+
+                    <div class="field">
+                        <label for="p1Scale">
+                            Vertical dilation
+                        </label>
+
+                        <select id="p1Scale">
+                            <option value="">Choose...</option>
+                            <option value="stretch2">Vertical stretch by a factor of 2</option>
+                            <option value="stretch3">Vertical stretch by a factor of 3</option>
+                            <option value="compressHalf">Vertical compression by a factor of 1/2</option>
+                        </select>
+                    </div>
+
+                    <div class="field full">
+                        <fieldset>
+                            <legend>Reflection</legend>
+
+                            <div class="choice-grid">
+                                <label class="choice">
+                                    <input
+                                        type="radio"
+                                        name="p1Reflection"
+                                        value="none"
+                                    >
+                                    No reflection
+                                </label>
+
+                                <label class="choice">
+                                    <input
+                                        type="radio"
+                                        name="p1Reflection"
+                                        value="x"
+                                    >
+                                    Reflection across the x-axis
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="field">
+                        <label for="p1VertexX">
+                            Key point x-coordinate
+                        </label>
+
+                        <input id="p1VertexX" type="number" step="any">
+                    </div>
+
+                    <div class="field">
+                        <label for="p1VertexY">
+                            Key point y-coordinate
+                        </label>
+
+                        <input id="p1VertexY" type="number" step="any">
+                    </div>
+                </div>
+
+                <div class="support-box">
+                    <strong>Key point reminder:</strong>
+                    For a quadratic or absolute-value function, enter the vertex.
+                    For a square-root function, enter the endpoint.
+                    For a cubic function, enter the center or inflection point.
+                </div>
+
+                <h3>Transform Two Parent-Function Points</h3>
+
+                <p>
+                    Use the transformation rule to find the corresponding points
+                    on the transformed function.
+                </p>
+
+                <table class="point-table">
+                    <thead>
+                        <tr>
+                            <th>Parent point</th>
+                            <th>Transformed x</th>
+                            <th>Transformed y</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td id="p1ParentPoint1"></td>
+
+                            <td>
+                                <input
+                                    id="p1Point1X"
+                                    type="number"
+                                    step="any"
+                                    aria-label="First transformed point x-coordinate"
+                                >
+                            </td>
+
+                            <td>
+                                <input
+                                    id="p1Point1Y"
+                                    type="number"
+                                    step="any"
+                                    aria-label="First transformed point y-coordinate"
+                                >
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td id="p1ParentPoint2"></td>
+
+                            <td>
+                                <input
+                                    id="p1Point2X"
+                                    type="number"
+                                    step="any"
+                                    aria-label="Second transformed point x-coordinate"
+                                >
+                            </td>
+
+                            <td>
+                                <input
+                                    id="p1Point2Y"
+                                    type="number"
+                                    step="any"
+                                    aria-label="Second transformed point y-coordinate"
+                                >
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="field" style="margin-top: 18px;">
+                    <label for="p1Explanation">
+                        Explain how the equation and graph show the transformations.
+                        <span class="required">*</span>
+                    </label>
+
+                    <textarea
+                        id="p1Explanation"
+                        placeholder="Use complete sentences and transformation vocabulary."
+                    ></textarea>
+                </div>
+
+                <div id="p1Feedback" class="feedback" role="status" aria-live="polite"></div>
+
+                <div class="button-row">
+                    <button id="checkP1Button" class="primary" type="button">
+                        Check Problem 1
+                    </button>
+                </div>
+            </article>
+
+            <!-- PROBLEM 2 -->
+            <article id="problem2" class="hidden">
+                <div class="problem-heading">
+                    <h2 style="margin: 0; color: #ffffff;">
+                        Problem 2: Build a Transformed Function
+                    </h2>
+
+                    <p>
+                        Use the directions to construct an equation, transform points,
+                        and select the correct graph.
+                    </p>
+                </div>
+
+                <p>
+                    Begin with the parent function:
+                </p>
+
+                <div id="p2ParentEquation" class="equation-box"></div>
+
+                <div class="support-box">
+                    <h3 style="margin-top: 0;">Transformation Directions</h3>
+
+                    <div id="p2Directions"></div>
+                </div>
+
+                <h3>Build the Equation</h3>
+
+                <p>
+                    Use the menus below to construct the transformed function.
+                </p>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="p2Sign">Outside sign</label>
+
+                        <select id="p2Sign">
+                            <option value="">Choose...</option>
+                            <option value="positive">Positive</option>
+                            <option value="negative">Negative</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="p2Scale">Scale factor</label>
+
+                        <select id="p2Scale">
+                            <option value="">Choose...</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="0.5">1/2</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="p2InsideDirection">Inside direction</label>
+
+                        <select id="p2InsideDirection">
+                            <option value="">Choose...</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="p2InsideAmount">Horizontal amount</label>
+
+                        <select id="p2InsideAmount">
+                            <option value="">Choose...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="p2OutsideDirection">Outside direction</label>
+
+                        <select id="p2OutsideDirection">
+                            <option value="">Choose...</option>
+                            <option value="up">Up</option>
+                            <option value="down">Down</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="p2OutsideAmount">Vertical amount</label>
+
+                        <select id="p2OutsideAmount">
+                            <option value="">Choose...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong>Your equation preview:</strong>
+
+                    <div id="p2EquationPreview" class="equation-box" style="margin-bottom: 0;">
+                        Complete the menus to build your equation.
+                    </div>
+                </div>
+
+                <h3>Identify the New Key Point</h3>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="p2VertexX">
+                            New key point x-coordinate
+                        </label>
+
+                        <input id="p2VertexX" type="number" step="any">
+                    </div>
+
+                    <div class="field">
+                        <label for="p2VertexY">
+                            New key point y-coordinate
+                        </label>
+
+                        <input id="p2VertexY" type="number" step="any">
+                    </div>
+                </div>
+
+                <h3>Transform Two Parent-Function Points</h3>
+
+                <table class="point-table">
+                    <thead>
+                        <tr>
+                            <th>Parent point</th>
+                            <th>Transformed x</th>
+                            <th>Transformed y</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td id="p2ParentPoint1"></td>
+
+                            <td>
+                                <input
+                                    id="p2Point1X"
+                                    type="number"
+                                    step="any"
+                                    aria-label="Problem 2 first transformed point x-coordinate"
+                                >
+                            </td>
+
+                            <td>
+                                <input
+                                    id="p2Point1Y"
+                                    type="number"
+                                    step="any"
+                                    aria-label="Problem 2 first transformed point y-coordinate"
+                                >
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td id="p2ParentPoint2"></td>
+
+                            <td>
+                                <input
+                                    id="p2Point2X"
+                                    type="number"
+                                    step="any"
+                                    aria-label="Problem 2 second transformed point x-coordinate"
+                                >
+                            </td>
+
+                            <td>
+                                <input
+                                    id="p2Point2Y"
+                                    type="number"
+                                    step="any"
+                                    aria-label="Problem 2 second transformed point y-coordinate"
+                                >
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Select the Correct Graph</h3>
+
+                <p>
+                    Select the graph that matches all of the transformation directions.
+                </p>
+
+                <div id="p2GraphChoices" class="graph-choice-grid"></div>
+
+                <div class="field" style="margin-top: 18px;">
+                    <label for="p2Explanation">
+                        Explain how each part of your equation represents the directions.
+                        <span class="required">*</span>
+                    </label>
+
+                    <textarea
+                        id="p2Explanation"
+                        placeholder="Explain the horizontal shift, vertical shift, reflection, and scale factor."
+                    ></textarea>
+                </div>
+
+                <div id="p2Feedback" class="feedback" role="status" aria-live="polite"></div>
+
+                <div class="button-row">
+                    <button id="backButton" class="secondary" type="button">
+                        Return to Problem 1
+                    </button>
+
+                    <button id="checkP2Button" class="primary" type="button">
+                        Check Problem 2
+                    </button>
+                </div>
+            </article>
+        </section>
+
+        <!-- =====================================================
+             SUMMARY SCREEN
+             ===================================================== -->
+        <section id="summaryPanel" class="panel hidden">
+            <div class="score-banner">
+                <strong>Assignment Complete</strong>
+
+                <p id="scoreText"></p>
+            </div>
+
+            <div class="overview">
+                <h2>Save and Submit Your Work</h2>
+
+                <p>
+                    Review the response summary below. Then select
+                    <strong>Print or Save as PDF</strong>.
+                </p>
+
+                <p>
+                    In the print window, choose <strong>Save as PDF</strong>.
+                    Upload the saved PDF to the Unit 4 Week 2 Prove It! assignment in Canvas.
+                </p>
+            </div>
+
+            <div class="support-box">
+                <strong>Before submitting:</strong>
+                Open the PDF and confirm that your name, both problems, objective results,
+                transformed points, and written explanations are visible.
+            </div>
+
+            <div class="summary-card">
+                <h3>Student Information</h3>
+
+                <table class="summary-table">
+                    <tbody>
+                        <tr>
+                            <th>Student</th>
+                            <td id="summaryName"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Assignment version</th>
+                            <td id="summaryVersion"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Date completed</th>
+                            <td id="summaryDate"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="summaryProblem1" class="summary-card"></div>
+            <div id="summaryProblem2" class="summary-card"></div>
+
+            <div class="teacher-note">
+                <strong>Teacher review:</strong>
+                Objective responses were checked automatically. Written explanations
+                should be reviewed for precision, completeness, and mathematical reasoning.
+            </div>
+
+            <div class="button-row">
+                <button id="printButton" class="primary" type="button">
+                    Print or Save as PDF
+                </button>
+
+                <button id="returnButton" class="secondary" type="button">
+                    Review My Work
+                </button>
+
+                <button id="restartButton" class="danger" type="button">
+                    Clear and Start Over
+                </button>
+            </div>
+        </section>
+
+        <p class="footer-note">
+            Progress is saved in this browser. The same student name generates the same assignment version.
+        </p>
+    </main>
+
+    <script>
+        "use strict";
+
+        /* =========================================================
+           CONSTANTS AND STATE
+           ========================================================= */
+
+        const STORAGE_PREFIX = "alg2-u4w2-prove-it-v2-";
+
+        const PARENT_FUNCTIONS = {
+            quadratic: {
+                name: "Quadratic",
+                equation: "f(x) = x²",
+                notation: x => `(${formatNumber(x)}, ${formatNumber(x * x)})`,
+                fn: x => x * x,
+                points: [
+                    [-2, 4],
+                    [-1, 1],
+                    [1, 1],
+                    [2, 4]
+                ]
+            },
+
+            absolute: {
+                name: "Absolute Value",
+                equation: "f(x) = |x|",
+                notation: x => `(${formatNumber(x)}, ${formatNumber(Math.abs(x))})`,
+                fn: x => Math.abs(x),
+                points: [
+                    [-3, 3],
+                    [-2, 2],
+                    [1, 1],
+                    [3, 3]
+                ]
+            },
+
+            sqrt: {
+                name: "Square Root",
+                equation: "f(x) = √x",
+                notation: x => `(${formatNumber(x)}, ${formatNumber(Math.sqrt(x))})`,
+                fn: x => x >= 0 ? Math.sqrt(x) : NaN,
+                points: [
+                    [1, 1],
+                    [4, 2],
+                    [9, 3]
+                ]
+            },
+
+            cubic: {
+                name: "Cubic",
+                equation: "f(x) = x³",
+                notation: x => `(${formatNumber(x)}, ${formatNumber(x * x * x)})`,
+                fn: x => x * x * x,
+                points: [
+                    [-2, -8],
+                    [-1, -1],
+                    [1, 1],
+                    [2, 8]
+                ]
+            }
+        };
+
+        const SCALE_OPTIONS = [2, 3, 0.5];
+
+        const state = {
+            firstName: "",
+            lastName: "",
+            normalizedName: "",
+            storageKey: "",
+            seed: 0,
+            rng: null,
+            assignment: null,
+            currentProblem: 1,
+            p1Complete: false,
+            p2Complete: false,
+            p1Attempts: 0,
+            p2Attempts: 0
+        };
+
+        const elements = {
+            welcomePanel: document.getElementById("welcomePanel"),
+            problemPanel: document.getElementById("problemPanel"),
+            summaryPanel: document.getElementById("summaryPanel"),
+
+            firstName: document.getElementById("firstName"),
+            lastName: document.getElementById("lastName"),
+            welcomeFeedback: document.getElementById("welcomeFeedback"),
+            generateButton: document.getElementById("generateButton"),
+
+            progressLabel: document.getElementById("progressLabel"),
+            progressTrack: document.getElementById("progressTrack"),
+            progressFill: document.getElementById("progressFill"),
+
+            problem1: document.getElementById("problem1"),
+            problem2: document.getElementById("problem2"),
+
+            p1ParentEquation: document.getElementById("p1ParentEquation"),
+            p1Equation: document.getElementById("p1Equation"),
+            p1Graph: document.getElementById("p1Graph"),
+            p1ParentType: document.getElementById("p1ParentType"),
+            p1Horizontal: document.getElementById("p1Horizontal"),
+            p1Vertical: document.getElementById("p1Vertical"),
+            p1Scale: document.getElementById("p1Scale"),
+            p1VertexX: document.getElementById("p1VertexX"),
+            p1VertexY: document.getElementById("p1VertexY"),
+            p1ParentPoint1: document.getElementById("p1ParentPoint1"),
+            p1ParentPoint2: document.getElementById("p1ParentPoint2"),
+            p1Point1X: document.getElementById("p1Point1X"),
+            p1Point1Y: document.getElementById("p1Point1Y"),
+            p1Point2X: document.getElementById("p1Point2X"),
+            p1Point2Y: document.getElementById("p1Point2Y"),
+            p1Explanation: document.getElementById("p1Explanation"),
+            p1Feedback: document.getElementById("p1Feedback"),
+            checkP1Button: document.getElementById("checkP1Button"),
+
+            p2ParentEquation: document.getElementById("p2ParentEquation"),
+            p2Directions: document.getElementById("p2Directions"),
+            p2Sign: document.getElementById("p2Sign"),
+            p2Scale: document.getElementById("p2Scale"),
+            p2InsideDirection: document.getElementById("p2InsideDirection"),
+            p2InsideAmount: document.getElementById("p2InsideAmount"),
+            p2OutsideDirection: document.getElementById("p2OutsideDirection"),
+            p2OutsideAmount: document.getElementById("p2OutsideAmount"),
+            p2EquationPreview: document.getElementById("p2EquationPreview"),
+            p2VertexX: document.getElementById("p2VertexX"),
+            p2VertexY: document.getElementById("p2VertexY"),
+            p2ParentPoint1: document.getElementById("p2ParentPoint1"),
+            p2ParentPoint2: document.getElementById("p2ParentPoint2"),
+            p2Point1X: document.getElementById("p2Point1X"),
+            p2Point1Y: document.getElementById("p2Point1Y"),
+            p2Point2X: document.getElementById("p2Point2X"),
+            p2Point2Y: document.getElementById("p2Point2Y"),
+            p2GraphChoices: document.getElementById("p2GraphChoices"),
+            p2Explanation: document.getElementById("p2Explanation"),
+            p2Feedback: document.getElementById("p2Feedback"),
+            backButton: document.getElementById("backButton"),
+            checkP2Button: document.getElementById("checkP2Button"),
+
+            summaryName: document.getElementById("summaryName"),
+            summaryVersion: document.getElementById("summaryVersion"),
+            summaryDate: document.getElementById("summaryDate"),
+            summaryProblem1: document.getElementById("summaryProblem1"),
+            summaryProblem2: document.getElementById("summaryProblem2"),
+            scoreText: document.getElementById("scoreText"),
+            printButton: document.getElementById("printButton"),
+            returnButton: document.getElementById("returnButton"),
+            restartButton: document.getElementById("restartButton")
+        };
+
+        /* =========================================================
+           SEEDED RANDOMIZATION
+           ========================================================= */
+
+        function normalizeName(first, last) {
+            return `${first.trim().toLowerCase()}|${last.trim().toLowerCase()}`
+                .replace(/\s+/g, " ");
+        }
+
+        function hashString(text) {
+            let hash = 2166136261;
+
+            for (let i = 0; i < text.length; i += 1) {
+                hash ^= text.charCodeAt(i);
+                hash = Math.imul(hash, 16777619);
+            }
+
+            return hash >>> 0;
+        }
+
+        function mulberry32(seed) {
+            return function () {
+                let value = seed += 0x6D2B79F5;
+
+                value = Math.imul(value ^ value >>> 15, value | 1);
+                value ^= value + Math.imul(value ^ value >>> 7, value | 61);
+
+                return ((value ^ value >>> 14) >>> 0) / 4294967296;
+            };
+        }
+
+        function randomChoice(array) {
+            return array[Math.floor(state.rng() * array.length)];
+        }
+
+        function randomNonzeroInteger(min, max) {
+            const choices = [];
+
+            for (let value = min; value <= max; value += 1) {
+                if (value !== 0) {
+                    choices.push(value);
+                }
+            }
+
+            return randomChoice(choices);
+        }
+
+        function shuffleSeeded(array) {
+            const copy = [...array];
+
+            for (let i = copy.length - 1; i > 0; i -= 1) {
+                const j = Math.floor(state.rng() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+
+            return copy;
+        }
+
+        /* =========================================================
+           ASSIGNMENT GENERATION
+           ========================================================= */
+
+        function generateAssignment() {
+            const parentKeys = Object.keys(PARENT_FUNCTIONS);
+            const firstParent = randomChoice(parentKeys);
+
+            const secondParentChoices = parentKeys.filter(
+                key => key !== firstParent
+            );
+
+            const secondParent = randomChoice(secondParentChoices);
+
+            const p1 = generateProblem(firstParent);
+            const p2 = generateProblem(secondParent);
+
+            p2.graphOptions = generateGraphOptions(p2);
+
+            return {
+                version: `U4W2-${state.seed.toString(16).toUpperCase()}`,
+                p1,
+                p2
+            };
+        }
+
+        function generateProblem(parentKey) {
+            const scale = randomChoice(SCALE_OPTIONS);
+            const reflected = state.rng() < 0.55;
+            const a = reflected ? -scale : scale;
+            const h = randomNonzeroInteger(-5, 5);
+            const k = randomNonzeroInteger(-5, 5);
+
+            const parent = PARENT_FUNCTIONS[parentKey];
+            const points = shuffleSeeded(parent.points).slice(0, 2);
+
+            return {
+                parentKey,
+                a,
+                scale,
+                reflected,
+                h,
+                k,
+                parentPoints: points,
+                transformedPoints: points.map(([x, y]) => [
+                    x + h,
+                    a * y + k
+                ]),
+                keyPoint: [h, k],
+                equation: buildEquation(parentKey, a, h, k),
+                fn: x => {
+                    const input = x - h;
+                    const parentValue = parent.fn(input);
+
+                    return Number.isFinite(parentValue)
+                        ? a * parentValue + k
+                        : NaN;
+                }
+            };
+        }
+
+        function generateGraphOptions(problem) {
+            const correct = {
+                id: "correct",
+                a: problem.a,
+                h: problem.h,
+                k: problem.k
+            };
+
+            const wrongHorizontal = {
+                id: "wrongHorizontal",
+                a: problem.a,
+                h: -problem.h,
+                k: problem.k
+            };
+
+            const wrongReflection = {
+                id: "wrongReflection",
+                a: -problem.a,
+                h: problem.h,
+                k: problem.k
+            };
+
+            return shuffleSeeded([
+                correct,
+                wrongHorizontal,
+                wrongReflection
+            ]);
+        }
+
+        function buildEquation(parentKey, a, h, k) {
+            const coefficient = formatCoefficient(a);
+            const inside = formatInside(h);
+            const outside = formatOutside(k);
+
+            if (parentKey === "quadratic") {
+                return `g(x) = ${coefficient}(${inside})²${outside}`;
+            }
+
+            if (parentKey === "absolute") {
+                return `g(x) = ${coefficient}|${inside}|${outside}`;
+            }
+
+            if (parentKey === "sqrt") {
+                return `g(x) = ${coefficient}√(${inside})${outside}`;
+            }
+
+            return `g(x) = ${coefficient}(${inside})³${outside}`;
+        }
+
+        function buildEquationFromSelections(problem) {
+            const sign = elements.p2Sign.value;
+            const scale = Number(elements.p2Scale.value);
+            const insideDirection = elements.p2InsideDirection.value;
+            const insideAmount = Number(elements.p2InsideAmount.value);
+            const outsideDirection = elements.p2OutsideDirection.value;
+            const outsideAmount = Number(elements.p2OutsideAmount.value);
+
+            if (
+                !sign ||
+                !Number.isFinite(scale) ||
+                !insideDirection ||
+                !Number.isFinite(insideAmount) ||
+                !outsideDirection ||
+                !Number.isFinite(outsideAmount)
+            ) {
+                return null;
+            }
+
+            const a = sign === "negative" ? -scale : scale;
+            const h = insideDirection === "right"
+                ? insideAmount
+                : -insideAmount;
+            const k = outsideDirection === "up"
+                ? outsideAmount
+                : -outsideAmount;
+
+            return {
+                a,
+                h,
+                k,
+                equation: buildEquation(problem.parentKey, a, h, k)
+            };
+        }
+
+        /* =========================================================
+           FORMATTING HELPERS
+           ========================================================= */
+
+        function formatNumber(value) {
+            if (Math.abs(value - 0.5) < 0.0001) {
+                return "1/2";
+            }
+
+            if (Math.abs(value + 0.5) < 0.0001) {
+                return "-1/2";
+            }
+
+            if (Number.isInteger(value)) {
+                return String(value);
+            }
+
+            return String(Number(value.toFixed(3)));
+        }
+
+        function formatCoefficient(a) {
+            if (a === 1) {
+                return "";
+            }
+
+            if (a === -1) {
+                return "−";
+            }
+
+            if (a === 0.5) {
+                return "½";
+            }
+
+            if (a === -0.5) {
+                return "−½";
+            }
+
+            return a < 0
+                ? `−${Math.abs(a)}`
+                : String(a);
+        }
+
+        function formatInside(h) {
+            if (h > 0) {
+                return `x − ${h}`;
+            }
+
+            return `x + ${Math.abs(h)}`;
+        }
+
+        function formatOutside(k) {
+            if (k > 0) {
+                return ` + ${k}`;
+            }
+
+            return ` − ${Math.abs(k)}`;
+        }
+
+        function horizontalDescription(h) {
+            return h > 0
+                ? `right ${h} unit${h === 1 ? "" : "s"}`
+                : `left ${Math.abs(h)} unit${Math.abs(h) === 1 ? "" : "s"}`;
+        }
+
+        function verticalDescription(k) {
+            return k > 0
+                ? `up ${k} unit${k === 1 ? "" : "s"}`
+                : `down ${Math.abs(k)} unit${Math.abs(k) === 1 ? "" : "s"}`;
+        }
+
+        function scaleDescription(scale) {
+            return scale > 1
+                ? `vertical stretch by a factor of ${scale}`
+                : "vertical compression by a factor of 1/2";
+        }
+
+        function scaleKey(scale) {
+            if (scale === 2) {
+                return "stretch2";
+            }
+
+            if (scale === 3) {
+                return "stretch3";
+            }
+
+            return "compressHalf";
+        }
+
+        function approximatelyEqual(value, expected) {
+            const number = Number(value);
+
+            return Number.isFinite(number) &&
+                Math.abs(number - expected) < 0.001;
+        }
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        /* =========================================================
+           STORAGE
+           ========================================================= */
+
+        function collectResponseData() {
+            return {
+                currentProblem: state.currentProblem,
+                p1Complete: state.p1Complete,
+                p2Complete: state.p2Complete,
+                p1Attempts: state.p1Attempts,
+                p2Attempts: state.p2Attempts,
+
+                p1: {
+                    parentType: elements.p1ParentType.value,
+                    horizontal: elements.p1Horizontal.value,
+                    vertical: elements.p1Vertical.value,
+                    scale: elements.p1Scale.value,
+                    reflection:
+                        document.querySelector(
+                            'input[name="p1Reflection"]:checked'
+                        )?.value || "",
+                    vertexX: elements.p1VertexX.value,
+                    vertexY: elements.p1VertexY.value,
+                    point1X: elements.p1Point1X.value,
+                    point1Y: elements.p1Point1Y.value,
+                    point2X: elements.p1Point2X.value,
+                    point2Y: elements.p1Point2Y.value,
+                    explanation: elements.p1Explanation.value
+                },
+
+                p2: {
+                    sign: elements.p2Sign.value,
+                    scale: elements.p2Scale.value,
+                    insideDirection: elements.p2InsideDirection.value,
+                    insideAmount: elements.p2InsideAmount.value,
+                    outsideDirection: elements.p2OutsideDirection.value,
+                    outsideAmount: elements.p2OutsideAmount.value,
+                    vertexX: elements.p2VertexX.value,
+                    vertexY: elements.p2VertexY.value,
+                    point1X: elements.p2Point1X.value,
+                    point1Y: elements.p2Point1Y.value,
+                    point2X: elements.p2Point2X.value,
+                    point2Y: elements.p2Point2Y.value,
+                    graphChoice:
+                        document.querySelector(
+                            'input[name="p2GraphChoice"]:checked'
+                        )?.value || "",
+                    explanation: elements.p2Explanation.value
+                }
+            };
+        }
+
+        function saveProgress() {
+            if (!state.storageKey || !state.assignment) {
+                return;
+            }
+
+            const payload = {
+                firstName: state.firstName,
+                lastName: state.lastName,
+                seed: state.seed,
+                assignment: state.assignment,
+                responses: collectResponseData()
+            };
+
+            localStorage.setItem(
+                state.storageKey,
+                JSON.stringify(payload)
+            );
+        }
+
+        function restoreProgress(payload) {
+            if (!payload?.responses) {
+                return;
+            }
+
+            const response = payload.responses;
+
+            state.currentProblem = response.currentProblem || 1;
+            state.p1Complete = Boolean(response.p1Complete);
+            state.p2Complete = Boolean(response.p2Complete);
+            state.p1Attempts = response.p1Attempts || 0;
+            state.p2Attempts = response.p2Attempts || 0;
+
+            setValue(elements.p1ParentType, response.p1?.parentType);
+            setValue(elements.p1Horizontal, response.p1?.horizontal);
+            setValue(elements.p1Vertical, response.p1?.vertical);
+            setValue(elements.p1Scale, response.p1?.scale);
+            setRadio("p1Reflection", response.p1?.reflection);
+            setValue(elements.p1VertexX, response.p1?.vertexX);
+            setValue(elements.p1VertexY, response.p1?.vertexY);
+            setValue(elements.p1Point1X, response.p1?.point1X);
+            setValue(elements.p1Point1Y, response.p1?.point1Y);
+            setValue(elements.p1Point2X, response.p1?.point2X);
+            setValue(elements.p1Point2Y, response.p1?.point2Y);
+            setValue(elements.p1Explanation, response.p1?.explanation);
+
+            setValue(elements.p2Sign, response.p2?.sign);
+            setValue(elements.p2Scale, response.p2?.scale);
+            setValue(
+                elements.p2InsideDirection,
+                response.p2?.insideDirection
+            );
+            setValue(
+                elements.p2InsideAmount,
+                response.p2?.insideAmount
+            );
+            setValue(
+                elements.p2OutsideDirection,
+                response.p2?.outsideDirection
+            );
+            setValue(
+                elements.p2OutsideAmount,
+                response.p2?.outsideAmount
+            );
+            setValue(elements.p2VertexX, response.p2?.vertexX);
+            setValue(elements.p2VertexY, response.p2?.vertexY);
+            setValue(elements.p2Point1X, response.p2?.point1X);
+            setValue(elements.p2Point1Y, response.p2?.point1Y);
+            setValue(elements.p2Point2X, response.p2?.point2X);
+            setValue(elements.p2Point2Y, response.p2?.point2Y);
+            setRadio("p2GraphChoice", response.p2?.graphChoice);
+            setValue(elements.p2Explanation, response.p2?.explanation);
+
+            updateP2Preview();
+        }
+
+        function setValue(element, value) {
+            if (value !== undefined && value !== null) {
+                element.value = value;
+            }
+        }
+
+        function setRadio(name, value) {
+            if (!value) {
+                return;
+            }
+
+            const input = document.querySelector(
+                `input[name="${name}"][value="${value}"]`
+            );
+
+            if (input) {
+                input.checked = true;
+            }
+        }
+
+        /* =========================================================
+           START AND RENDER
+           ========================================================= */
+
+        function startAssignment() {
+            const first = elements.firstName.value.trim();
+            const last = elements.lastName.value.trim();
+
+            if (first.length < 2 || last.length < 2) {
+                showFeedback(
+                    elements.welcomeFeedback,
+                    false,
+                    "Enter both your first and last name before generating the assignment."
+                );
+                return;
+            }
+
+            state.firstName = first;
+            state.lastName = last;
+            state.normalizedName = normalizeName(first, last);
+            state.seed = hashString(state.normalizedName);
+            state.storageKey = `${STORAGE_PREFIX}${state.seed}`;
+            state.rng = mulberry32(state.seed);
+
+            const savedText = localStorage.getItem(state.storageKey);
+            let saved = null;
+
+            if (savedText) {
+                try {
+                    saved = JSON.parse(savedText);
+                } catch (error) {
+                    console.warn("Saved progress could not be read.", error);
+                }
+            }
+
+            state.assignment = saved?.assignment || generateAssignment();
+
+            renderAssignment();
+
+            if (saved) {
+                restoreProgress(saved);
+            }
+
+            elements.welcomePanel.classList.add("hidden");
+            elements.summaryPanel.classList.add("hidden");
+            elements.problemPanel.classList.remove("hidden");
+
+            showProblem(state.currentProblem);
+            saveProgress();
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function renderAssignment() {
+            const { p1, p2 } = state.assignment;
+
+            renderSelectOptions();
+
+            elements.p1ParentEquation.textContent =
+                PARENT_FUNCTIONS[p1.parentKey].equation;
+
+            elements.p1Equation.textContent = p1.equation;
+
+            elements.p1ParentPoint1.textContent =
+                formatPoint(p1.parentPoints[0]);
+
+            elements.p1ParentPoint2.textContent =
+                formatPoint(p1.parentPoints[1]);
+
+            drawMainGraph(elements.p1Graph, p1);
+
+            elements.p2ParentEquation.textContent =
+                PARENT_FUNCTIONS[p2.parentKey].equation;
+
+            elements.p2Directions.innerHTML = `
+                <p>☐ Translate the graph <strong>${horizontalDescription(p2.h)}</strong>.</p>
+                <p>☐ ${p2.reflected
+                    ? "Reflect the graph across the <strong>x-axis</strong>."
+                    : "Do <strong>not</strong> reflect the graph."}</p>
+                <p>☐ Apply a <strong>${scaleDescription(p2.scale)}</strong>.</p>
+                <p style="margin-bottom: 0;">
+                    ☐ Translate the graph <strong>${verticalDescription(p2.k)}</strong>.
+                </p>
+            `;
+
+            elements.p2ParentPoint1.textContent =
+                formatPoint(p2.parentPoints[0]);
+
+            elements.p2ParentPoint2.textContent =
+                formatPoint(p2.parentPoints[1]);
+
+            renderGraphChoices(p2);
+        }
+
+        function renderSelectOptions() {
+            elements.p1Horizontal.innerHTML =
+                '<option value="">Choose...</option>';
+
+            elements.p1Vertical.innerHTML =
+                '<option value="">Choose...</option>';
+
+            for (let amount = 1; amount <= 5; amount += 1) {
+                elements.p1Horizontal.insertAdjacentHTML(
+                    "beforeend",
+                    `
+                    <option value="right${amount}">
+                        Right ${amount}
+                    </option>
+                    <option value="left${amount}">
+                        Left ${amount}
+                    </option>
+                    `
+                );
+
+                elements.p1Vertical.insertAdjacentHTML(
+                    "beforeend",
+                    `
+                    <option value="up${amount}">
+                        Up ${amount}
+                    </option>
+                    <option value="down${amount}">
+                        Down ${amount}
+                    </option>
+                    `
+                );
+            }
+        }
+
+        function renderGraphChoices(problem) {
+            elements.p2GraphChoices.innerHTML = "";
+
+            problem.graphOptions.forEach((option, index) => {
+                const wrapper = document.createElement("div");
+                const choiceId = `graphChoice${index}`;
+                const svgId = `miniGraph${index}`;
+
+                wrapper.className = "graph-choice";
+
+                wrapper.innerHTML = `
+                    <label for="${choiceId}">
+                        <svg
+                            id="${svgId}"
+                            class="mini-graph"
+                            viewBox="0 0 360 280"
+                            role="img"
+                            aria-label="Graph option ${index + 1}"
+                        ></svg>
+
+                        <span class="choice">
+                            <input
+                                id="${choiceId}"
+                                type="radio"
+                                name="p2GraphChoice"
+                                value="${option.id}"
+                            >
+                            Graph ${String.fromCharCode(65 + index)}
+                        </span>
+                    </label>
+                `;
+
+                elements.p2GraphChoices.appendChild(wrapper);
+
+                const optionProblem = {
+                    ...problem,
+                    a: option.a,
+                    h: option.h,
+                    k: option.k,
+                    fn: x => {
+                        const parentValue =
+                            PARENT_FUNCTIONS[problem.parentKey].fn(x - option.h);
+
+                        return Number.isFinite(parentValue)
+                            ? option.a * parentValue + option.k
+                            : NaN;
+                    }
+                };
+
+                drawMainGraph(
+                    document.getElementById(svgId),
+                    optionProblem,
+                    true
+                );
+            });
+
+            document
+                .querySelectorAll('input[name="p2GraphChoice"]')
+                .forEach(input => {
+                    input.addEventListener("change", () => {
+                        document
+                            .querySelectorAll(".graph-choice")
+                            .forEach(card => card.classList.remove("selected"));
+
+                        input.closest(".graph-choice")
+                            .classList.add("selected");
+
+                        saveProgress();
+                    });
+                });
+        }
+
+        function showProblem(number) {
+            state.currentProblem = number;
+
+            elements.problem1.classList.toggle("hidden", number !== 1);
+            elements.problem2.classList.toggle("hidden", number !== 2);
+
+            const completeCount =
+                Number(state.p1Complete) + Number(state.p2Complete);
+
+            elements.progressLabel.textContent =
+                `Problem ${number} of 2`;
+
+            elements.progressFill.style.width =
+                `${(completeCount / 2) * 100}%`;
+
+            elements.progressTrack.setAttribute(
+                "aria-valuenow",
+                String(completeCount)
+            );
+
+            saveProgress();
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        /* =========================================================
+           PROBLEM 1 VALIDATION
+           ========================================================= */
+
+        function checkProblem1() {
+            const problem = state.assignment.p1;
+
+            state.p1Attempts += 1;
+
+            const reflection =
+                document.querySelector(
+                    'input[name="p1Reflection"]:checked'
+                )?.value || "";
+
+            const expectedHorizontal = problem.h > 0
+                ? `right${problem.h}`
+                : `left${Math.abs(problem.h)}`;
+
+            const expectedVertical = problem.k > 0
+                ? `up${problem.k}`
+                : `down${Math.abs(problem.k)}`;
+
+            const checks = [
+                {
+                    label: "Parent function family",
+                    correct:
+                        elements.p1ParentType.value === problem.parentKey
+                },
+                {
+                    label: "Horizontal translation",
+                    correct:
+                        elements.p1Horizontal.value === expectedHorizontal
+                },
+                {
+                    label: "Vertical translation",
+                    correct:
+                        elements.p1Vertical.value === expectedVertical
+                },
+                {
+                    label: "Vertical dilation",
+                    correct:
+                        elements.p1Scale.value === scaleKey(problem.scale)
+                },
+                {
+                    label: "Reflection",
+                    correct:
+                        reflection === (problem.reflected ? "x" : "none")
+                },
+                {
+                    label: "Key point",
+                    correct:
+                        approximatelyEqual(
+                            elements.p1VertexX.value,
+                            problem.keyPoint[0]
+                        ) &&
+                        approximatelyEqual(
+                            elements.p1VertexY.value,
+                            problem.keyPoint[1]
+                        )
+                },
+                {
+                    label: "First transformed point",
+                    correct:
+                        approximatelyEqual(
+                            elements.p1Point1X.value,
+                            problem.transformedPoints[0][0]
+                        ) &&
+                        approximatelyEqual(
+                            elements.p1Point1Y.value,
+                            problem.transformedPoints[0][1]
+                        )
+                },
+                {
+                    label: "Second transformed point",
+                    correct:
+                        approximatelyEqual(
+                            elements.p1Point2X.value,
+                            problem.transformedPoints[1][0]
+                        ) &&
+                        approximatelyEqual(
+                            elements.p1Point2Y.value,
+                            problem.transformedPoints[1][1]
+                        )
+                },
+                {
+                    label: "Written explanation",
+                    correct:
+                        elements.p1Explanation.value.trim().length >= 35
+                }
+            ];
+
+            const allCorrect = checks.every(check => check.correct);
+
+            renderCheckResults(
+                elements.p1Feedback,
+                checks,
+                allCorrect,
+                "Problem 1 is complete.",
+                "Review the highlighted skills and revise your work."
+            );
+
+            if (allCorrect) {
+                state.p1Complete = true;
+                saveProgress();
+
+                window.setTimeout(() => {
+                    showProblem(2);
+                }, 900);
+            } else {
+                saveProgress();
+            }
+        }
+
+        /* =========================================================
+           PROBLEM 2 VALIDATION
+           ========================================================= */
+
+        function updateP2Preview() {
+            if (!state.assignment) {
+                return;
+            }
+
+            const built = buildEquationFromSelections(
+                state.assignment.p2
+            );
+
+            elements.p2EquationPreview.textContent = built
+                ? built.equation
+                : "Complete the menus to build your equation.";
+
+            saveProgress();
+        }
+
+        function checkProblem2() {
+            const problem = state.assignment.p2;
+            const built = buildEquationFromSelections(problem);
+
+            state.p2Attempts += 1;
+
+            const selectedGraph =
+                document.querySelector(
+                    'input[name="p2GraphChoice"]:checked'
+                )?.value || "";
+
+            const checks = [
+                {
+                    label: "Constructed equation",
+                    correct:
+                        Boolean(built) &&
+                        approximatelyEqual(built.a, problem.a) &&
+                        built.h === problem.h &&
+                        built.k === problem.k
+                },
+                {
+                    label: "New key point",
+                    correct:
+                        approximatelyEqual(
+                            elements.p2VertexX.value,
+                            problem.keyPoint[0]
+                        ) &&
+                        approximatelyEqual(
+                            elements.p2VertexY.value,
+                            problem.keyPoint[1]
+                        )
+                },
+                {
+                    label: "First transformed point",
+                    correct:
+                        approximatelyEqual(
+                            elements.p2Point1X.value,
+                            problem.transformedPoints[0][0]
+                        ) &&
+                        approximatelyEqual(
+                            elements.p2Point1Y.value,
+                            problem.transformedPoints[0][1]
+                        )
+                },
+                {
+                    label: "Second transformed point",
+                    correct:
+                        approximatelyEqual(
+                            elements.p2Point2X.value,
+                            problem.transformedPoints[1][0]
+                        ) &&
+                        approximatelyEqual(
+                            elements.p2Point2Y.value,
+                            problem.transformedPoints[1][1]
+                        )
+                },
+                {
+                    label: "Graph selection",
+                    correct: selectedGraph === "correct"
+                },
+                {
+                    label: "Written explanation",
+                    correct:
+                        elements.p2Explanation.value.trim().length >= 35
+                }
+            ];
+
+            const allCorrect = checks.every(check => check.correct);
+
+            renderCheckResults(
+                elements.p2Feedback,
+                checks,
+                allCorrect,
+                "Problem 2 is complete.",
+                "Review the highlighted skills and revise your work."
+            );
+
+            if (allCorrect) {
+                state.p2Complete = true;
+                saveProgress();
+
+                window.setTimeout(showSummary, 900);
+            } else {
+                saveProgress();
+            }
+        }
+
+        function renderCheckResults(
+            container,
+            checks,
+            allCorrect,
+            successMessage,
+            revisionMessage
+        ) {
+            container.className =
+                `feedback show ${allCorrect ? "correct" : "incorrect"}`;
+
+            container.innerHTML = `
+                <h3>${allCorrect ? "Correct!" : "Not complete yet"}</h3>
+
+                <p>${allCorrect ? successMessage : revisionMessage}</p>
+
+                <div class="status-list">
+                    ${checks.map(check => `
+                        <div class="status-item ${check.correct ? "good" : "bad"}">
+                            ${check.correct ? "✓" : "✗"} ${escapeHtml(check.label)}
+                        </div>
+                    `).join("")}
+                </div>
+            `;
+        }
+
+        function showFeedback(container, isCorrect, message) {
+            container.className =
+                `feedback show ${isCorrect ? "correct" : "incorrect"}`;
+
+            container.innerHTML = `
+                <h3>${isCorrect ? "Ready" : "Check your information"}</h3>
+                <p>${escapeHtml(message)}</p>
+            `;
+        }
+
+        /* =========================================================
+           SUMMARY
+           ========================================================= */
+
+        function showSummary() {
+            const response = collectResponseData();
+            const { p1, p2 } = state.assignment;
+
+            elements.problemPanel.classList.add("hidden");
+            elements.summaryPanel.classList.remove("hidden");
+
+            elements.summaryName.textContent =
+                `${state.firstName} ${state.lastName}`;
+
+            elements.summaryVersion.textContent =
+                state.assignment.version;
+
+            elements.summaryDate.textContent =
+                new Date().toLocaleDateString();
+
+            const objectiveChecks = 14;
+            const totalAttempts =
+                state.p1Attempts + state.p2Attempts;
+
+            elements.scoreText.textContent =
+                `${objectiveChecks} objective components completed correctly. ` +
+                `Total answer checks: ${totalAttempts}.`;
+
+            elements.summaryProblem1.innerHTML = `
+                <h3>Problem 1: Analyze a Transformed Function</h3>
+
+                <table class="summary-table">
+                    <tbody>
+                        <tr>
+                            <th>Parent function</th>
+                            <td>${escapeHtml(PARENT_FUNCTIONS[p1.parentKey].equation)}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Generated function</th>
+                            <td>${escapeHtml(p1.equation)}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Student analysis</th>
+                            <td>
+                                ${escapeHtml(elements.p1Horizontal.options[
+                                    elements.p1Horizontal.selectedIndex
+                                ]?.text || "")};
+                                ${escapeHtml(elements.p1Vertical.options[
+                                    elements.p1Vertical.selectedIndex
+                                ]?.text || "")};
+                                ${p1.reflected
+                                    ? "reflection across the x-axis"
+                                    : "no reflection"};
+                                ${escapeHtml(scaleDescription(p1.scale))}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Key point</th>
+                            <td>
+                                (${formatNumber(p1.keyPoint[0])},
+                                ${formatNumber(p1.keyPoint[1])})
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Parent point 1</th>
+                            <td>${formatPoint(p1.parentPoints[0])}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Transformed point 1</th>
+                            <td>
+                                (${escapeHtml(response.p1.point1X)},
+                                ${escapeHtml(response.p1.point1Y)})
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Parent point 2</th>
+                            <td>${formatPoint(p1.parentPoints[1])}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Transformed point 2</th>
+                            <td>
+                                (${escapeHtml(response.p1.point2X)},
+                                ${escapeHtml(response.p1.point2Y)})
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Student explanation</th>
+                            <td>${escapeHtml(response.p1.explanation)}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Objective result</th>
+                            <td><strong>Complete and correct</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+            elements.summaryProblem2.innerHTML = `
+                <h3>Problem 2: Build a Transformed Function</h3>
+
+                <table class="summary-table">
+                    <tbody>
+                        <tr>
+                            <th>Parent function</th>
+                            <td>${escapeHtml(PARENT_FUNCTIONS[p2.parentKey].equation)}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Generated directions</th>
+                            <td>
+                                Translate ${escapeHtml(horizontalDescription(p2.h))};
+                                ${p2.reflected
+                                    ? "reflect across the x-axis"
+                                    : "do not reflect"};
+                                apply a ${escapeHtml(scaleDescription(p2.scale))};
+                                translate ${escapeHtml(verticalDescription(p2.k))}.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Student equation</th>
+                            <td>${escapeHtml(p2.equation)}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Key point</th>
+                            <td>
+                                (${formatNumber(p2.keyPoint[0])},
+                                ${formatNumber(p2.keyPoint[1])})
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Parent point 1</th>
+                            <td>${formatPoint(p2.parentPoints[0])}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Transformed point 1</th>
+                            <td>
+                                (${escapeHtml(response.p2.point1X)},
+                                ${escapeHtml(response.p2.point1Y)})
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Parent point 2</th>
+                            <td>${formatPoint(p2.parentPoints[1])}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Transformed point 2</th>
+                            <td>
+                                (${escapeHtml(response.p2.point2X)},
+                                ${escapeHtml(response.p2.point2Y)})
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Graph selection</th>
+                            <td>Correct graph selected</td>
+                        </tr>
+
+                        <tr>
+                            <th>Student explanation</th>
+                            <td>${escapeHtml(response.p2.explanation)}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Objective result</th>
+                            <td><strong>Complete and correct</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+            saveProgress();
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function formatPoint(point) {
+            return `(${formatNumber(point[0])}, ${formatNumber(point[1])})`;
+        }
+
+        /* =========================================================
+           SVG GRAPHING
+           ========================================================= */
+
+        function createSvgElement(tag, attributes = {}) {
+            const element = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                tag
+            );
+
+            Object.entries(attributes).forEach(([key, value]) => {
+                element.setAttribute(key, String(value));
+            });
+
+            return element;
+        }
+
+        function chooseBounds(problem) {
+            const horizontalRange = 10;
+            const xMin = Math.min(-6, problem.h - horizontalRange / 2);
+            const xMax = Math.max(6, problem.h + horizontalRange / 2);
+
+            const transformedValues = [];
+
+            for (let i = 0; i <= 160; i += 1) {
+                const x = xMin + (i / 160) * (xMax - xMin);
+                const y = problem.fn(x);
+
+                if (Number.isFinite(y) && Math.abs(y) < 80) {
+                    transformedValues.push(y);
+                }
+            }
+
+            const parent = PARENT_FUNCTIONS[problem.parentKey];
+
+            for (let i = 0; i <= 160; i += 1) {
+                const x = xMin + (i / 160) * (xMax - xMin);
+                const y = parent.fn(x);
+
+                if (Number.isFinite(y) && Math.abs(y) < 80) {
+                    transformedValues.push(y);
+                }
+            }
+
+            const observedMin = Math.min(
+                -6,
+                problem.k - 6,
+                ...transformedValues
+            );
+
+            const observedMax = Math.max(
+                6,
+                problem.k + 6,
+                ...transformedValues
+            );
+
+            const yMin = Math.max(-20, Math.floor(observedMin));
+            const yMax = Math.min(20, Math.ceil(observedMax));
+
+            return {
+                xMin: Math.floor(xMin),
+                xMax: Math.ceil(xMax),
+                yMin: yMin === yMax ? yMin - 5 : yMin,
+                yMax: yMin === yMax ? yMax + 5 : yMax
+            };
+        }
+
+        function drawMainGraph(svg, problem, mini = false) {
+            const parent = PARENT_FUNCTIONS[problem.parentKey];
+            const bounds = chooseBounds(problem);
+
+            const width = mini ? 360 : 640;
+            const height = mini ? 280 : 500;
+            const padding = mini ? 28 : 42;
+
+            svg.innerHTML = "";
+
+            const xScale = x =>
+                padding +
+                ((x - bounds.xMin) / (bounds.xMax - bounds.xMin)) *
+                (width - 2 * padding);
+
+            const yScale = y =>
+                height -
+                padding -
+                ((y - bounds.yMin) / (bounds.yMax - bounds.yMin)) *
+                (height - 2 * padding);
+
+            const clipId =
+                `clip-${Math.random().toString(36).slice(2)}`;
+
+            const defs = createSvgElement("defs");
+            const clip = createSvgElement("clipPath", { id: clipId });
+
+            clip.appendChild(
+                createSvgElement("rect", {
+                    x: padding,
+                    y: padding,
+                    width: width - 2 * padding,
+                    height: height - 2 * padding
+                })
+            );
+
+            defs.appendChild(clip);
+            svg.appendChild(defs);
+
+            svg.appendChild(
+                createSvgElement("rect", {
+                    x: padding,
+                    y: padding,
+                    width: width - 2 * padding,
+                    height: height - 2 * padding,
+                    fill: "#ffffff",
+                    stroke: "#cbd5df"
+                })
+            );
+
+            drawGrid(
+                svg,
+                bounds,
+                xScale,
+                yScale,
+                width,
+                height,
+                padding,
+                mini
+            );
+
+            const group = createSvgElement("g", {
+                "clip-path": `url(#${clipId})`
+            });
+
+            group.appendChild(
+                createCurve(
+                    parent.fn,
+                    bounds,
+                    xScale,
+                    yScale,
+                    {
+                        stroke: "#a9b4bd",
+                        "stroke-width": mini ? 3 : 4,
+                        "stroke-dasharray": "9 7"
+                    }
+                )
+            );
+
+            group.appendChild(
+                createCurve(
+                    problem.fn,
+                    bounds,
+                    xScale,
+                    yScale,
+                    {
+                        stroke: "#1479b8",
+                        "stroke-width": mini ? 4 : 5
+                    }
+                )
+            );
+
+            svg.appendChild(group);
+        }
+
+        function drawGrid(
+            svg,
+            bounds,
+            xScale,
+            yScale,
+            width,
+            height,
+            padding,
+            mini
+        ) {
+            const xStep = bounds.xMax - bounds.xMin > 14 ? 2 : 1;
+            const yStep = bounds.yMax - bounds.yMin > 18 ? 2 : 1;
+
+            for (
+                let x = Math.ceil(bounds.xMin);
+                x <= Math.floor(bounds.xMax);
+                x += xStep
+            ) {
+                svg.appendChild(
+                    createSvgElement("line", {
+                        x1: xScale(x),
+                        y1: padding,
+                        x2: xScale(x),
+                        y2: height - padding,
+                        stroke: x === 0 ? "#526273" : "#e4eaef",
+                        "stroke-width": x === 0 ? 2 : 1
+                    })
+                );
+
+                if (!mini && x !== 0) {
+                    const text = createSvgElement("text", {
+                        x: xScale(x),
+                        y:
+                            bounds.yMin <= 0 && bounds.yMax >= 0
+                                ? Math.min(height - padding - 4, yScale(0) + 17)
+                                : height - padding + 17,
+                        "text-anchor": "middle",
+                        "font-size": 11,
+                        fill: "#526273"
+                    });
+
+                    text.textContent = x;
+                    svg.appendChild(text);
+                }
+            }
+
+            for (
+                let y = Math.ceil(bounds.yMin);
+                y <= Math.floor(bounds.yMax);
+                y += yStep
+            ) {
+                svg.appendChild(
+                    createSvgElement("line", {
+                        x1: padding,
+                        y1: yScale(y),
+                        x2: width - padding,
+                        y2: yScale(y),
+                        stroke: y === 0 ? "#526273" : "#e4eaef",
+                        "stroke-width": y === 0 ? 2 : 1
+                    })
+                );
+
+                if (!mini && y !== 0) {
+                    const text = createSvgElement("text", {
+                        x:
+                            bounds.xMin <= 0 && bounds.xMax >= 0
+                                ? Math.max(padding + 5, xScale(0) - 7)
+                                : padding - 7,
+                        y: yScale(y) + 4,
+                        "text-anchor": "end",
+                        "font-size": 11,
+                        fill: "#526273"
+                    });
+
+                    text.textContent = y;
+                    svg.appendChild(text);
+                }
+            }
+        }
+
+        function createCurve(
+            fn,
+            bounds,
+            xScale,
+            yScale,
+            style
+        ) {
+            const samples = 850;
+            let path = "";
+            let penDown = false;
+            let previousY = null;
+
+            for (let i = 0; i <= samples; i += 1) {
+                const x =
+                    bounds.xMin +
+                    (i / samples) * (bounds.xMax - bounds.xMin);
+
+                const y = fn(x);
+
+                const valid =
+                    Number.isFinite(y) &&
+                    y >= bounds.yMin - 2 &&
+                    y <= bounds.yMax + 2;
+
+                if (!valid) {
+                    penDown = false;
+                    previousY = null;
+                    continue;
+                }
+
+                const px = xScale(x);
+                const py = yScale(y);
+
+                const largeJump =
+                    previousY !== null &&
+                    Math.abs(py - previousY) > 120;
+
+                if (!penDown || largeJump) {
+                    path += `M ${px.toFixed(2)} ${py.toFixed(2)} `;
+                    penDown = true;
+                } else {
+                    path += `L ${px.toFixed(2)} ${py.toFixed(2)} `;
+                }
+
+                previousY = py;
+            }
+
+            return createSvgElement("path", {
+                d: path.trim(),
+                fill: "none",
+                "stroke-linecap": "round",
+                "stroke-linejoin": "round",
+                ...style
+            });
+        }
+
+        /* =========================================================
+           EVENT LISTENERS
+           ========================================================= */
+
+        elements.generateButton.addEventListener(
+            "click",
+            startAssignment
+        );
+
+        elements.checkP1Button.addEventListener(
+            "click",
+            checkProblem1
+        );
+
+        elements.checkP2Button.addEventListener(
+            "click",
+            checkProblem2
+        );
+
+        elements.backButton.addEventListener(
+            "click",
+            () => showProblem(1)
+        );
+
+        elements.printButton.addEventListener(
+            "click",
+            () => window.print()
+        );
+
+        elements.returnButton.addEventListener(
+            "click",
+            () => {
+                elements.summaryPanel.classList.add("hidden");
+                elements.problemPanel.classList.remove("hidden");
+                showProblem(2);
+            }
+        );
+
+        elements.restartButton.addEventListener(
+            "click",
+            () => {
+                const confirmed = window.confirm(
+                    "This will permanently erase your saved work for this assignment version. Continue?"
+                );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                localStorage.removeItem(state.storageKey);
+                window.location.reload();
+            }
+        );
+
+        [
+            elements.p2Sign,
+            elements.p2Scale,
+            elements.p2InsideDirection,
+            elements.p2InsideAmount,
+            elements.p2OutsideDirection,
+            elements.p2OutsideAmount
+        ].forEach(element => {
+            element.addEventListener("change", updateP2Preview);
+        });
+
+        document.addEventListener("input", event => {
+            if (
+                elements.problemPanel.contains(event.target) &&
+                state.assignment
+            ) {
+                saveProgress();
+            }
+        });
+
+        document.addEventListener("change", event => {
+            if (
+                elements.problemPanel.contains(event.target) &&
+                state.assignment
+            ) {
+                saveProgress();
+            }
+        });
+    </script>
+</body>
+</html>
